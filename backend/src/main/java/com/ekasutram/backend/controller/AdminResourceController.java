@@ -5,28 +5,14 @@ import com.ekasutram.backend.service.ResourceService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.List;
-
 @RestController
-@RequestMapping("/api/resources")
-public class ResourceController {
+@RequestMapping("/api/admin")
+public class AdminResourceController {
 
     private final ResourceService resourceService;
 
-    public ResourceController(ResourceService resourceService) {
+    public AdminResourceController(ResourceService resourceService) {
         this.resourceService = resourceService;
-    }
-
-    // ✅ GET all / filter by subject
-    @GetMapping
-    public List<Resource> getResources(
-            @RequestParam(required = false) String subject) {
-
-        if (subject != null) {
-            return resourceService.getResourcesBySubject(subject);
-        }
-        return resourceService.getAllResources();
     }
 
     @PostMapping(
@@ -37,9 +23,12 @@ public class ResourceController {
             @RequestParam("subject") String subject,
             @RequestParam("chapterName") String chapterName,
             @RequestParam("file") MultipartFile file
-    ) throws IOException {
-
-        return resourceService.saveResource(subject, chapterName, file);
+    ) {
+        try {
+            return resourceService.saveResource(subject, chapterName, file);
+        } catch (Exception e) {
+            e.printStackTrace(); // 🔥 THIS IS KEY
+            throw new RuntimeException(e.getMessage());
+        }
     }
-
 }

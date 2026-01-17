@@ -1,9 +1,6 @@
 package com.ekasutram.backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Resource {
@@ -16,15 +13,7 @@ public class Resource {
     private String chapterName;
     private String pdfUrl;
 
-    public Resource() {
-        // Required by JPA
-    }
-
-    public Resource(String subject, String chapterName, String pdfUrl) {
-        this.subject = subject;
-        this.chapterName = chapterName;
-        this.pdfUrl = pdfUrl;
-    }
+    // ✅ Getters and Setters
 
     public Long getId() {
         return id;
@@ -34,11 +23,23 @@ public class Resource {
         return subject;
     }
 
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
     public String getChapterName() {
         return chapterName;
     }
 
+    public void setChapterName(String chapterName) {
+        this.chapterName = chapterName;
+    }
+
     public String getPdfUrl() {
         return pdfUrl;
+    }
+
+    public void setPdfUrl(String pdfUrl) {
+        this.pdfUrl = pdfUrl;
     }
 }
