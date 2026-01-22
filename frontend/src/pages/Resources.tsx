@@ -1,31 +1,121 @@
-import { useEffect, useState } from "react";
-import { getResources } from "../services/api";
+import { useEffect, useState, useMemo } from "react";
+import { getResources } from "./api";
+import MathBackground from "../components/MathBackground";
+import "../styles/Resources.css";
+
+interface Resource {
+  id: number;
+  subject: string;
+  chapterName: string;
+  pdfUrl: string;
+}
 
 const Resources = () => {
-  const [resources, setResources] = useState<any[]>([]);
+  const [resources, setResources] = useState<Resource[]>([]);
+  const [selectedTopic, setSelectedTopic] = useState<string>("All");
+  const [loading, setLoading] = useState(true);
+
+  // ✅ New state for the PDF preview modal
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    getResources().then((res) => setResources(res.data));
+    getResources()
+      .then((res) => setResources(res.data))
+      .catch((err) => console.error("Failed to fetch resources", err))
+      .finally(() => setLoading(false));
   }, []);
 
-  return (
-    <div>
-      <h2>Resources</h2>
-      <ul>
-        {resources.map((r) => (
-          <li key={r.id}>
-            <a
-              href={r.pdfUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ color: "lightblue" }}
-            >
-              {r.subject} — {r.chapterName}
-            </a>
+  const topics = useMemo(() => {
+    const allTopics = resources.map((r) => r.subject);
+    return ["All", ...new Set(allTopics)].filter(Boolean);
+  }, [resources]);
 
-          </li>
-        ))}
-      </ul>
+  const filteredResources = useMemo(() => {
+    if (selectedTopic === "All") return resources;
+    return resources.filter((r) => r.subject === selectedTopic);
+  }, [resources, selectedTopic]);
+
+  return (
+    <div className="resources-container">
+      <MathBackground showSymbols={false} />
+      {/* Sidebar */}
+      <aside className="resources-sidebar">
+        <div className="sidebar-header"><h2>Categories</h2></div>
+        <ul className="subject-list">
+          {topics.map((topic) => (
+            <li key={topic} className="subject-item">
+              <button
+                className={`subject-btn ${selectedTopic === topic ? "active" : ""}`}
+                onClick={() => setSelectedTopic(topic)}
+              >
+                {topic}
+                <span className="subject-count">
+                  {topic === "All" ? resources.length : resources.filter(r => r.subject === topic).length}
+                </span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      </aside>
+
+      {/* Main Content */}
+      <main className="resources-main">
+        <div className="page-header">
+          <h1 className="page-title">Learning Resources</h1>
+          <p className="page-subtitle">Curated materials to boost your mathematical journey.</p>
+        </div>
+
+        {loading ? (
+          <div className="loading-spinner">Loading resources...</div>
+        ) : (
+          <div className="resources-grid">
+            {filteredResources.map((r) => (
+              <div key={r.id} className="resource-card">
+                <div className="resource-icon">📚</div>
+                <div className="resource-subject">{r.subject}</div>
+                <h3 className="resource-title">{r.chapterName}</h3>
+
+                <div className="resource-actions">
+                  {/* ✅ PREVIEW BUTTON */}
+                  <button
+                    onClick={() => setPreviewUrl(r.pdfUrl)}
+                    className="preview-btn"
+                  >
+                    View Online 👁️
+                  </button>
+
+                  {/* Download Link */}
+                  <a href={r.pdfUrl} download className="download-link">
+                    Download ↗
+                  </a>
+                </div>
+              </div>
+            ))}
+
+            {filteredResources.length === 0 && (
+              <div className="no-results">No resources found.</div>
+            )}
+          </div>
+        )}
+
+        {/* ✅ PDF MODAL OVERLAY */}
+        {previewUrl && (
+          <div className="pdf-modal-overlay" onClick={() => setPreviewUrl(null)}>
+            <div className="pdf-modal-content" onClick={(e) => e.stopPropagation()}>
+              <div className="modal-header">
+                <h3>Document Preview</h3>
+                <button className="close-modal" onClick={() => setPreviewUrl(null)}>×</button>
+              </div>
+              <iframe
+                src={`${previewUrl}#toolbar=0`}
+                width="100%"
+                height="100%"
+                title="PDF Preview"
+              />
+            </div>
+          </div>
+        )}
+      </main>
     </div>
   );
 };

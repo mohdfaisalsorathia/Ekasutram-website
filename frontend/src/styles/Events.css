@@ -1,0 +1,221 @@
+/* ===== EVENTS PAGE STYLES ===== */
+
+.events-container {
+  position: relative;
+  min-height: 100vh;
+  color: #fff;
+  overflow-x: hidden;
+  padding-top: 80px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* ===== HERO SECTION ===== */
+.events-hero {
+  position: relative;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.hero-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.events-title {
+  font-size: 4rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #ffffff, #a0a0a0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.events-subtitle {
+  font-size: 1.3rem;
+  color: #b0b0b0;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ===== EVENTS SECTION ===== */
+.events-section {
+  padding: 4rem 0 6rem;
+  position: relative;
+  z-index: 2;
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* ===== EVENT CARDS ===== */
+.event-card {
+  position: relative;
+  background: rgba(20, 20, 20, 0.8);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.event-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(160, 160, 160, 0.3));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.event-card:hover::before {
+  opacity: 1;
+}
+
+.event-card::after {
+  content: "";
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
+  top: calc(var(--mouse-y, 0) - 100px);
+  left: calc(var(--mouse-x, 0) - 100px);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.event-card:hover::after {
+  opacity: 1;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 16px;
+  pointer-events: none;
+}
+
+.card-content {
+  position: relative;
+  padding: 2rem;
+  z-index: 1;
+}
+
+.event-category {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  background: rgba(128, 128, 128, 0.2);
+  border: 1px solid rgba(160, 160, 160, 0.5);
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #d0d0d0;
+  margin-bottom: 1rem;
+}
+
+.event-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.event-date {
+  color: #ffffff;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.event-description {
+  color: #b0b0b0;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* ===== BUTTONS ===== */
+.cta-button {
+  padding: 0.8rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-button.primary {
+  background: linear-gradient(135deg, #505050, #707070);
+  color: #fff;
+}
+
+.cta-button.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(80, 80, 80, 0.4);
+}
+
+/* ===== SPOTLIGHT EFFECT ===== */
+.spotlight-card {
+  position: relative;
+  background: rgba(20, 20, 20, 0.8);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .events-title {
+    font-size: 2.5rem;
+  }
+
+  .events-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+}

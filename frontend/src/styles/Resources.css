@@ -1,0 +1,262 @@
+/* Resources Page Styles */
+.resources-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: transparent;
+    color: #e0e0e0;
+    position: relative;
+    z-index: 1;
+}
+
+/* Sidebar Styling */
+.resources-sidebar {
+    width: 280px;
+    background-color: rgba(30, 30, 30, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 30px 20px;
+    border-right: 1px solid #2a2a2a;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    flex-shrink: 0;
+}
+
+.sidebar-header {
+    font-family: 'Georgia', serif;
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #333;
+}
+
+.subject-list {
+    list-style: none;
+    padding: 0;
+}
+
+.subject-item {
+    margin-bottom: 10px;
+}
+
+.subject-btn {
+    width: 100%;
+    text-align: left;
+    background: transparent;
+    border: none;
+    color: #aaa;
+    padding: 12px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.subject-btn:hover {
+    background: #1a1a1a;
+    color: #fff;
+    transform: translateX(5px);
+}
+
+.subject-btn.active {
+    background: #2a2a2a;
+    color: #fff;
+    border-left: 4px solid #4CAF50;
+    /* GFG Green-ish accent */
+}
+
+.subject-count {
+    font-size: 0.8rem;
+    background: #333;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+/* Main Content Styling */
+.resources-main {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+}
+
+.page-header {
+    margin-bottom: 40px;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-family: 'Georgia', serif;
+}
+
+.page-subtitle {
+    color: #888;
+    font-size: 1.1rem;
+}
+
+/* Curiosity Quencher Section */
+.curiosity-quencher {
+    background: linear-gradient(135deg, rgba(45, 45, 45, 0.7) 0%, rgba(30, 30, 30, 0.7) 100%);
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 50px;
+    border: 1px solid #333;
+    position: relative;
+    overflow: hidden;
+}
+
+.curiosity-quencher::before {
+    content: "Did You Know?";
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    background: #4CAF50;
+    color: #000;
+    padding: 5px 15px;
+    border-radius: 0 0 10px 10px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.curiosity-content h3 {
+    color: #fff;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.curiosity-content p {
+    color: #ccc;
+    line-height: 1.6;
+}
+
+/* Resources Grid */
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.resource-card {
+    background: rgba(55, 55, 55, 0.6);
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    padding: 25px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+.resource-card:hover {
+    transform: translateY(-5px);
+    border-color: #4CAF50;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.resource-card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 0;
+    background: #4CAF50;
+    transition: width 0.3s ease;
+}
+
+.resource-card:hover::after {
+    width: 100%;
+}
+
+.resource-icon {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.resource-card:hover .resource-icon {
+    color: #4CAF50;
+}
+
+.resource-subject {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: #888;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.resource-title {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    color: #eee;
+    flex-grow: 1;
+}
+
+.resource-link {
+    align-self: flex-start;
+    padding: 8px 16px;
+    background: #2a2a2a;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.resource-link:hover {
+    background: #4CAF50;
+    color: #000;
+}
+
+.external-icon {
+    font-size: 0.8rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .resources-container {
+        flex-direction: column;
+    }
+
+    .resources-sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+        border-right: none;
+        border-bottom: 1px solid #2a2a2a;
+    }
+
+    .subject-list {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 10px;
+        gap: 10px;
+    }
+
+    .subject-btn {
+        width: auto;
+        white-space: nowrap;
+        border-left: none;
+        border-bottom: 3px solid transparent;
+    }
+
+    .subject-btn.active {
+        border-left: none;
+        border-bottom: 3px solid #4CAF50;
+    }
+
+    .resources-main {
+        padding: 20px;
+    }
+}

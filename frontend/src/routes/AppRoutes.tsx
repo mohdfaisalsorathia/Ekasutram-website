@@ -1,6 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import Navbar from "../components/Navbar";
+import { Routes, Route } from "react-router-dom";
 
 import Home from "../pages/Home";
 import Resources from "../pages/Resources";
@@ -13,23 +11,18 @@ import AdminResources from "../pages/AdminResources";
 
 const AppRoutes = () => {
   return (
-    <BrowserRouter>
-      {/* ✅ Always visible */}
-      <Navbar />
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/resources" element={<Resources />} />
+      <Route path="/events" element={<Events />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/team" element={<Team />} />
+      <Route path="/fun-games" element={<FunGames />} />
+      <Route path="/setcode" element={<SetCode />} />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/resources" element={<Resources />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/team" element={<Team />} />
-        <Route path="/fun-games" element={<FunGames />} />
-        <Route path="/setcode" element={<SetCode />} />
-
-        {/* 🔐 Hidden admin route */}
-        <Route path="/admin/resources" element={<AdminResources />} />
-      </Routes>
-    </BrowserRouter>
+      {/* 🔐 Hidden admin route */}
+      <Route path="/admin/resources" element={<AdminResources />} />
+    </Routes>
   );
 };
 

@@ -1,0 +1,209 @@
+/* Team Page Styles */
+.team-page {
+    position: relative;
+    min-height: 100vh;
+    color: #fff;
+    overflow-x: hidden;
+    padding-top: 80px;
+}
+
+.team-container {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 5rem;
+    perspective: 1000px;
+    position: relative;
+    z-index: 2;
+}
+
+.team-heading {
+    font-size: 4rem;
+    margin-bottom: 0.5rem;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 700;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 10;
+}
+
+.team-subheading {
+    font-size: 1.2rem;
+    color: #b0b0b0;
+    margin-bottom: 1rem;
+    text-align: center;
+    max-width: 600px;
+    position: relative;
+    z-index: 10;
+}
+
+.scroll-hint {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 2rem;
+    opacity: 0.8;
+    animation: bounce 2s infinite;
+    position: relative;
+    z-index: 10;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(5px);
+    }
+}
+
+.carousel-wrapper {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-top: 6rem;
+}
+
+.carousel-container {
+    width: 300px;
+    height: 400px;
+    position: relative;
+    perspective: 1200px;
+}
+
+.carousel {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.team-card-3d {
+    position: absolute;
+    width: 220px;
+    height: 320px;
+    left: 10px;
+    top: 10px;
+    background: rgba(30, 30, 30, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    transition: border-color 0.3s ease;
+    backface-visibility: hidden;
+    /* Or visible if you want to see backs */
+}
+
+.team-card-3d:hover {
+    border-color: #fff;
+}
+
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #444, #222);
+    margin-bottom: 20px;
+    border: 2px solid #555;
+}
+
+.team-card-3d h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.member-role {
+    font-size: 0.9rem;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.team-info-section {
+    background: rgba(20, 20, 20, 0.8);
+    padding: 5rem 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.team-footer {
+    background: #0f0f0f;
+    padding: 4rem 2rem 2rem;
+    border-top: 1px solid #222;
+    position: relative;
+    z-index: 2;
+    /* Reusing footer styles from global or About */
+}
+
+/* Popup */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease;
+}
+
+.popup-card {
+    background: #1a1a1a;
+    padding: 3rem;
+    border-radius: 20px;
+    max-width: 600px;
+    width: 90%;
+    display: flex;
+    gap: 2rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    border: 1px solid #333;
+}
+
+.popup-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: #333;
+    flex-shrink: 0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .popup-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem;
+    }
+
+    .popup-avatar {
+        margin: 0 auto;
+    }
+}
