@@ -96,6 +96,7 @@
   }
 
   .navbar-links {
-    display: none; /* Simple hide for now, can be replaced with a hamburger menu */
+    display: none;
+    /* Simple hide for now, can be replaced with a hamburger menu */
   }
 }

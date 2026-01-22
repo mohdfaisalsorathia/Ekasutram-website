@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 
+<<<<<<< HEAD
 interface MathBackgroundProps {
     showSymbols?: boolean;
     style?: React.CSSProperties;
@@ -12,6 +13,12 @@ const MathBackground = ({ showSymbols = true, style, className }: MathBackground
     useEffect(() => {
         if (!showSymbols) return; // Skip animation if disabled
 
+=======
+const MathBackground = () => {
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+
+    useEffect(() => {
+>>>>>>> 8161dfded62f2d5a9e42c0ffe58280b1239252b5
         const canvas = canvasRef.current;
         if (!canvas) return;
 
@@ -156,12 +163,19 @@ const MathBackground = ({ showSymbols = true, style, className }: MathBackground
             window.removeEventListener("mousemove", handleMouseMove);
             cancelAnimationFrame(animationFrameId);
         };
+<<<<<<< HEAD
     }, [showSymbols]);
+=======
+    }, []);
+>>>>>>> 8161dfded62f2d5a9e42c0ffe58280b1239252b5
 
     return (
         <canvas
             ref={canvasRef}
+<<<<<<< HEAD
             className={className}
+=======
+>>>>>>> 8161dfded62f2d5a9e42c0ffe58280b1239252b5
             style={{
                 position: "fixed",
                 top: 0,
@@ -170,8 +184,12 @@ const MathBackground = ({ showSymbols = true, style, className }: MathBackground
                 height: "100%",
                 zIndex: 0,
                 pointerEvents: "none",
+<<<<<<< HEAD
                 background: "radial-gradient(circle at center, #3d3d3d 0%, #1a1a1a 100%)", // Lighter slate grey background
                 ...style, // Allow overriding styles
+=======
+                background: "radial-gradient(circle at center, #1a1a1a 0%, #000 100%)", // Deep dark background
+>>>>>>> 8161dfded62f2d5a9e42c0ffe58280b1239252b5
             }}
         />
     );

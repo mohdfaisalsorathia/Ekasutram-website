@@ -50,6 +50,7 @@ const Events = () => {
   return (
     <div className="events-container">
       <Navbar />
+<<<<<<< HEAD
       <MathBackground showSymbols={false} />
 
       <section className="events-hero" style={{ position: "relative", overflow: "hidden" }}>
@@ -57,6 +58,11 @@ const Events = () => {
           showSymbols={true}
           style={{ position: "absolute", zIndex: 0 }}
         />
+=======
+      <MathBackground />
+      
+      <section className="events-hero">
+>>>>>>> 8161dfded62f2d5a9e42c0ffe58280b1239252b5
         <div className="hero-glow"></div>
         <div className="hero-content">
           <h1 className="events-title">Upcoming Events</h1>

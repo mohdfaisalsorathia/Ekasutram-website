@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
+<<<<<<< HEAD
 import Navbar from "../components/Navbar";
+=======
+>>>>>>> 8161dfded62f2d5a9e42c0ffe58280b1239252b5
 
 const SetCode = () => {
   const [show, setShow] = useState(false);
@@ -13,17 +16,49 @@ const SetCode = () => {
       style={{
         display: "flex",
         flexDirection: "column",
+<<<<<<< HEAD
         height: "100vh",
+=======
+        height: "100vh", // Full viewport height
+>>>>>>> 8161dfded62f2d5a9e42c0ffe58280b1239252b5
         width: "100%",
         backgroundColor: "#000",
         overflow: "hidden",
       }}
     >
+<<<<<<< HEAD
       <Navbar />
 
       <main
         style={{
           flex: 1,
+=======
+      {/* 1. THE NAVBAR AREA
+          If your real navbar is a separate component,
+          you can remove this placeholder. */}
+      <nav
+        style={{
+          height: "60px",
+          display: "flex",
+          alignItems: "center",
+          padding: "0 2rem",
+          borderBottom: "1px solid #222",
+          backgroundColor: "rgba(0,0,0,0.8)",
+          backdropFilter: "blur(10px)",
+          zIndex: 10,
+        }}
+      >
+        <div style={{ color: "#3b82f6", fontWeight: "bold", fontSize: "1.2rem" }}>
+          SetCode
+        </div>
+        {/* Your nav links would go here */}
+      </nav>
+
+      {/* 2. THE MAIN CONTENT AREA */}
+      <main
+        style={{
+          flex: 1, // Takes up all remaining vertical space
+>>>>>>> 8161dfded62f2d5a9e42c0ffe58280b1239252b5
           display: "flex",
           flexDirection: "column",
           alignItems: "center",

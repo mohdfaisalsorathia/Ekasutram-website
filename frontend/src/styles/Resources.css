@@ -2,17 +2,26 @@
 .resources-container {
     display: flex;
     min-height: 100vh;
+<<<<<<< HEAD
     background-color: transparent;
     color: #e0e0e0;
     position: relative;
     z-index: 1;
+=======
+    background-color: #0a0a0a;
+    color: #e0e0e0;
+>>>>>>> 8161dfded62f2d5a9e42c0ffe58280b1239252b5
 }
 
 /* Sidebar Styling */
 .resources-sidebar {
     width: 280px;
+<<<<<<< HEAD
     background-color: rgba(30, 30, 30, 0.85);
     backdrop-filter: blur(10px);
+=======
+    background-color: #111;
+>>>>>>> 8161dfded62f2d5a9e42c0ffe58280b1239252b5
     padding: 30px 20px;
     border-right: 1px solid #2a2a2a;
     position: sticky;
@@ -100,7 +109,11 @@
 
 /* Curiosity Quencher Section */
 .curiosity-quencher {
+<<<<<<< HEAD
     background: linear-gradient(135deg, rgba(45, 45, 45, 0.7) 0%, rgba(30, 30, 30, 0.7) 100%);
+=======
+    background: linear-gradient(135deg, #1f1f1f 0%, #151515 100%);
+>>>>>>> 8161dfded62f2d5a9e42c0ffe58280b1239252b5
     padding: 30px;
     border-radius: 15px;
     margin-bottom: 50px;
@@ -143,7 +156,11 @@
 }
 
 .resource-card {
+<<<<<<< HEAD
     background: rgba(55, 55, 55, 0.6);
+=======
+    background: #151515;
+>>>>>>> 8161dfded62f2d5a9e42c0ffe58280b1239252b5
     border: 1px solid #2a2a2a;
     border-radius: 12px;
     padding: 25px;
@@ -259,4 +276,75 @@
     .resources-main {
         padding: 20px;
     }
+<<<<<<< HEAD
+=======
+}
+
+/* Actions area inside card */
+.resource-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.preview-btn {
+  background: #4dabf7;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.preview-btn:hover { background: #339af0; }
+
+/* Modal Styles */
+.pdf-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.pdf-modal-content {
+  width: 90%;
+  max-width: 1000px;
+  height: 90vh;
+  background: #1e1e1e;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  padding: 15px 20px;
+  background: #2c2c2c;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+iframe {
+  border: none;
+>>>>>>> 8161dfded62f2d5a9e42c0ffe58280b1239252b5
 }
