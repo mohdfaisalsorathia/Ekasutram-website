@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
 import { getResources, uploadResource, deleteResource, uploadGame } from "../services/api";
 import MathBackground from "../components/MathBackground";
+import { useNavigate } from "react-router-dom"; // Assuming you use react-router
 
 const AdminResources = () => {
+    // --- Auth State ---
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const navigate = useNavigate();
+
     // --- Existing Resource States ---
     const [resources, setResources] = useState<any[]>([]);
     const [subject, setSubject] = useState("");
@@ -17,19 +22,40 @@ const AdminResources = () => {
         optionB: "",
         optionC: "",
         optionD: "",
-        correctAnswer: "A" // Default selection
+        correctAnswer: "A"
     });
+
+    useEffect(() => {
+        // --- Password Logic ---
+        const checkAuth = () => {
+            const SECRET_HASH = "VklUQEVrYXN1dHJhbQ=="; // This is VIT@Ekasutram encoded
+            const sessionAuth = sessionStorage.getItem("admin_auth");
+
+            if (sessionAuth === "true") {
+                setIsAuthenticated(true);
+                fetchResources();
+            } else {
+                const password = prompt("Enter Admin Password:");
+                if (password && btoa(password) === SECRET_HASH) {
+                    sessionStorage.setItem("admin_auth", "true");
+                    setIsAuthenticated(true);
+                    fetchResources();
+                } else {
+                    alert("Unauthorized access!");
+                    navigate("/"); // Redirect to home
+                }
+            }
+        };
+
+        checkAuth();
+    }, [navigate]);
 
     const fetchResources = async () => {
         const res = await getResources();
         setResources(res.data);
     };
 
-    useEffect(() => {
-        fetchResources();
-    }, []);
-
-    // --- Existing HandleUpload (PDFs) ---
+    // --- Existing HandleUpload, handleGameUpload, handleDelete logic remains exactly the same ---
     const handleUpload = async () => {
         if (!file) return alert("Select a PDF");
         try {
@@ -45,7 +71,6 @@ const AdminResources = () => {
         } catch (err) { alert("Upload failed"); } finally { setLoading(false); }
     };
 
-    // --- New HandleGameUpload (Fun Games) ---
     const handleGameUpload = async () => {
         if (!gameData.questionText || !gameData.optionA) return alert("Please fill all fields");
         try {
@@ -68,6 +93,9 @@ const AdminResources = () => {
         } catch (err) { alert("Delete failed"); }
     };
 
+    // --- Conditional Rendering ---
+    if (!isAuthenticated) return null; // Don't show anything while checking/failed
+
     return (
         <div style={{ padding: "20px", color: "white", minHeight: "100vh", position: "relative" }}>
             <MathBackground showSymbols={false} />
@@ -76,8 +104,7 @@ const AdminResources = () => {
                 <h2>Admin Dashboard</h2>
 
                 <div style={{ display: "flex", gap: "50px", flexWrap: "wrap" }}>
-
-                    {/* --- SECTION 1: STUDY RESOURCES --- */}
+                    {/* --- STUDY RESOURCES SECTION --- */}
                     <div style={{ flex: 1, border: "1px solid #333", padding: "15px", minWidth: "300px", background: "#1a1a1a", borderRadius: "8px" }}>
                         <h3>1. Upload Study Resource (PDF)</h3>
                         <input placeholder="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} style={{ width: "100%", padding: "8px", marginBottom: "10px", background: "#333", border: "none", color: "white" }} /><br />
@@ -88,7 +115,7 @@ const AdminResources = () => {
                         </button>
                     </div>
 
-                    {/* --- SECTION 2: FUN GAMES --- */}
+                    {/* --- FUN GAMES SECTION --- */}
                     <div style={{ flex: 1, border: "1px solid #333", padding: "15px", minWidth: "300px", background: "#1a1a1a", borderRadius: "8px" }}>
                         <h3>2. Update Fun Game Question</h3>
                         <textarea
@@ -117,7 +144,6 @@ const AdminResources = () => {
                         </button>
                         <p style={{ fontSize: "12px", color: "orange", marginTop: "10px" }}>*Note: This will clear the current leaderboard!</p>
                     </div>
-
                 </div>
 
                 <hr style={{ borderColor: "#333", margin: "30px 0" }} />
