@@ -328,3 +328,73 @@
     display: none;
   }
 }
+
+/* =======================
+   MOBILE RESPONSIVENESS
+   ======================= */
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding-top: 120px; /* space for fixed navbar */
+    min-height: auto;
+  }
+
+  .logo-accent {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 20px;
+  }
+
+  .epsilon-symbol {
+    font-size: 3.5rem;
+  }
+
+  .hero-title {
+    font-size: 2.6rem;
+    letter-spacing: 2px;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+  }
+
+  .hero-college {
+    font-size: 1rem;
+    margin-bottom: 30px;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .cta-button {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .mission-section {
+    padding: 60px 20px;
+  }
+
+  .mission-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .mission-card {
+    padding: 30px;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2.2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+}

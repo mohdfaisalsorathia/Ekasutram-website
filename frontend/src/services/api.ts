@@ -35,3 +35,8 @@ export const getLeaderboard = () =>
 // User: Submit user score
 export const submitScore = (scoreData: { playerName: string; timeTakenMs: number }) =>
   API.post("/resources/game/submit-score", scoreData);
+
+// Use the 'API' instance you defined at the top
+export const verifyAdminPassword = async (password: string) => {
+    return await API.post("/admin/verify-password", { password });
+};

@@ -58,6 +58,73 @@ export default function Team() {
     return () => window.removeEventListener('wheel', handleWheel);
   }, []);
 
+
+  useEffect(() => {
+  let startX: number | null = null;
+  const angleStep = 360 / teamMembers.length; // 1 member rotation
+  const dragThreshold = 50; // minimum px to count as a swipe
+
+  // ---- Touch Events (Mobile) ----
+  const handleTouchStart = (e: TouchEvent) => {
+    startX = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: TouchEvent) => {
+    if (startX === null) return;
+    const endX = e.changedTouches[0].clientX;
+    const diff = endX - startX;
+
+    if (Math.abs(diff) > dragThreshold) {
+      if (diff > 0) setRotation(prev => prev - angleStep); // swipe right → previous
+      else setRotation(prev => prev + angleStep); // swipe left → next
+    }
+    startX = null;
+  };
+
+  // ---- Mouse Events (Desktop) ----
+  const handleMouseDown = (e: MouseEvent) => {
+    startX = e.clientX;
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseup", handleMouseUp);
+  };
+
+  let moved = false;
+  const handleMouseMove = (e: MouseEvent) => {
+    moved = true; // to track if mouse moved at all
+  };
+
+  const handleMouseUp = (e: MouseEvent) => {
+    if (startX === null) return;
+    const diff = e.clientX - startX;
+
+    if (moved && Math.abs(diff) > dragThreshold) {
+      if (diff > 0) setRotation(prev => prev - angleStep); // drag right → previous
+      else setRotation(prev => prev + angleStep); // drag left → next
+    }
+
+    startX = null;
+    moved = false;
+    window.removeEventListener("mousemove", handleMouseMove);
+    window.removeEventListener("mouseup", handleMouseUp);
+  };
+
+  const carouselEl = carouselRef.current;
+  if (carouselEl) {
+    carouselEl.addEventListener("touchstart", handleTouchStart);
+    carouselEl.addEventListener("touchend", handleTouchEnd);
+    carouselEl.addEventListener("mousedown", handleMouseDown);
+  }
+
+  return () => {
+    if (carouselEl) {
+      carouselEl.removeEventListener("touchstart", handleTouchStart);
+      carouselEl.removeEventListener("touchend", handleTouchEnd);
+      carouselEl.removeEventListener("mousedown", handleMouseDown);
+    }
+  };
+}, []);
+
+
   return (
     <section className="team-page">
       <Navbar />

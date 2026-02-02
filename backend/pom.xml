@@ -8,13 +8,14 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.2.5</version>
-        <relativePath/> </parent>
+        <relativePath/>
+    </parent>
 
-    <groupId>com.yourname</groupId>
-    <artifactId>myapp</artifactId>
+    <groupId>com.ekasutram</groupId>
+    <artifactId>backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>demo</name>
-    <description>Demo project for Spring Boot</description>
+    <name>backend</name>
+    <description>Ekasutram Backend</description>
 
     <properties>
         <java.version>17</java.version>
@@ -52,4 +53,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

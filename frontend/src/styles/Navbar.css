@@ -2,7 +2,7 @@
    NAVBAR STYLES
    ============================================= */
 
-.navbar {
+/* .navbar {
   position: fixed;
   top: 0;
   left: 0;
@@ -97,6 +97,137 @@
 
   .navbar-links {
     display: none;
-    /* Simple hide for now, can be replaced with a hamburger menu */
+    /* Simple hide for now, can be replaced with a hamburger menu {* /}
+  }
+}  */
+
+/* =============================================
+   NAVBAR STYLES
+   ============================================= */
+
+.navbar { 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 20px 0;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  background: transparent;
+  background: rgba(10, 10, 10, 0.01); /* slight dark transparent background  */
+  backdrop-filter: blur(3px); /* THIS adds the blur effect to whatever is behind */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+}
+
+.navbar.scrolled {
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 15px 0;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #f0f0f0;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.logo-image {
+  height: 40px;
+  margin-right: 10px;
+  transition: all 0.3s ease;
+}
+
+.logo-text {
+  transition: opacity 0.3s ease;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 35px;
+}
+
+.navbar-links a {
+  color: #b0b0b0;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.navbar-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #888888;
+  transition: width 0.3s ease;
+}
+
+.navbar-links a:hover {
+  color: #e0e0e0;
+}
+
+.navbar-links a:hover::after {
+  width: 100%;
+}
+
+/* ================= MOBILE ================= */
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 6px;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background: #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .navbar-container {
+    padding: 0 20px;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .navbar-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(10px);
+    gap: 20px;
+    padding: 20px 0;
+    display: none;
+    align-items: center;
+  }
+
+  .navbar-links.active {
+    display: flex;
   }
 }

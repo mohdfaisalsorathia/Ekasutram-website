@@ -1,21 +1,20 @@
 import { useEffect, useState } from "react";
-import { getResources, uploadResource, deleteResource, uploadGame } from "../services/api";
+import { getResources, uploadResource, deleteResource, uploadGame, verifyAdminPassword } from "../services/api";
 import MathBackground from "../components/MathBackground";
-import { useNavigate } from "react-router-dom"; // Assuming you use react-router
+import { useNavigate } from "react-router-dom";
 
 const AdminResources = () => {
-    // --- Auth State ---
+    // --- Auth States ---
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const navigate = useNavigate();
+    const [password, setPassword] = useState("");
 
-    // --- Existing Resource States ---
+    // --- Resource & Game States ---
     const [resources, setResources] = useState<any[]>([]);
     const [subject, setSubject] = useState("");
     const [chapterName, setChapterName] = useState("");
     const [file, setFile] = useState<File | null>(null);
     const [loading, setLoading] = useState(false);
 
-    // --- New Fun Games States ---
     const [gameData, setGameData] = useState({
         questionText: "",
         optionA: "",
@@ -25,37 +24,32 @@ const AdminResources = () => {
         correctAnswer: "A"
     });
 
-    useEffect(() => {
-        // --- Password Logic ---
-        const checkAuth = () => {
-            const SECRET_HASH = "VklUQEVrYXN1dHJhbQ=="; // This is VIT@Ekasutram encoded
-            const sessionAuth = sessionStorage.getItem("admin_auth");
-
-            if (sessionAuth === "true") {
-                setIsAuthenticated(true);
-                fetchResources();
-            } else {
-                const password = prompt("Enter Admin Password:");
-                if (password && btoa(password) === SECRET_HASH) {
-                    sessionStorage.setItem("admin_auth", "true");
-                    setIsAuthenticated(true);
-                    fetchResources();
-                } else {
-                    alert("Unauthorized access!");
-                    navigate("/"); // Redirect to home
-                }
-            }
-        };
-
-        checkAuth();
-    }, [navigate]);
-
     const fetchResources = async () => {
-        const res = await getResources();
-        setResources(res.data);
+        try {
+            const res = await getResources();
+            setResources(res.data);
+        } catch (err) {
+            console.error("Error fetching resources", err);
+        }
     };
 
-    // --- Existing HandleUpload, handleGameUpload, handleDelete logic remains exactly the same ---
+    useEffect(() => {
+        if (isAuthenticated) fetchResources();
+    }, [isAuthenticated]);
+
+    // --- Login Handler ---
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault();
+        try {
+            // Sends the password to the backend for checking
+            await verifyAdminPassword(password);
+            setIsAuthenticated(true);
+        } catch (err) {
+            alert("Access Denied: Incorrect Password");
+        }
+    };
+
+    // --- Resource Handlers ---
     const handleUpload = async () => {
         if (!file) return alert("Select a PDF");
         try {
@@ -76,13 +70,9 @@ const AdminResources = () => {
         try {
             setLoading(true);
             await uploadGame(gameData);
-            alert("New Question Live! Leaderboard has been reset.");
+            alert("New Question Live!");
             setGameData({ questionText: "", optionA: "", optionB: "", optionC: "", optionD: "", correctAnswer: "A" });
-        } catch (err) {
-            alert("Game upload failed");
-        } finally {
-            setLoading(false);
-        }
+        } catch (err) { alert("Game upload failed"); } finally { setLoading(false); }
     };
 
     const handleDelete = async (id: number) => {
@@ -93,18 +83,42 @@ const AdminResources = () => {
         } catch (err) { alert("Delete failed"); }
     };
 
-    // --- Conditional Rendering ---
-    if (!isAuthenticated) return null; // Don't show anything while checking/failed
+    // --- LOGIN RENDER ---
+    if (!isAuthenticated) {
+        return (
+            <div style={{ padding: "100px 20px", color: "white", textAlign: "center", minHeight: "100vh" }}>
+                <MathBackground showSymbols={true} />
+                <div style={{ position: "relative", zIndex: 2, background: "rgba(26, 26, 26, 0.9)", padding: "40px", borderRadius: "10px", display: "inline-block", border: "1px solid #333" }}>
+                    <h2 style={{ marginBottom: "20px" }}>Admin Access</h2>
+                    <form onSubmit={handleLogin}>
+                        <input
+                            type="password"
+                            placeholder="Enter Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            style={{ padding: "12px", borderRadius: "4px", border: "1px solid #444", width: "250px", background: "#000", color: "white" }}
+                        /><br /><br />
+                        <button type="submit" style={{ padding: "10px 25px", background: "#007bff", color: "white", border: "none", borderRadius: "4px", cursor: "pointer" }}>
+                            Login
+                        </button>
+                    </form>
+                </div>
+            </div>
+        );
+    }
 
+    // --- MAIN DASHBOARD RENDER ---
     return (
         <div style={{ padding: "20px", color: "white", minHeight: "100vh", position: "relative" }}>
             <MathBackground showSymbols={false} />
-
             <div style={{ position: "relative", zIndex: 2 }}>
-                <h2>Admin Dashboard</h2>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <h2>Admin Dashboard</h2>
+                    <button onClick={() => setIsAuthenticated(false)} style={{ background: "#444", color: "white", border: "none", padding: "5px 10px", borderRadius: "4px", cursor: "pointer" }}>Logout</button>
+                </div>
 
-                <div style={{ display: "flex", gap: "50px", flexWrap: "wrap" }}>
-                    {/* --- STUDY RESOURCES SECTION --- */}
+                <div style={{ display: "flex", gap: "50px", flexWrap: "wrap", marginTop: "20px" }}>
+                    {/* SECTION 1: STUDY RESOURCES */}
                     <div style={{ flex: 1, border: "1px solid #333", padding: "15px", minWidth: "300px", background: "#1a1a1a", borderRadius: "8px" }}>
                         <h3>1. Upload Study Resource (PDF)</h3>
                         <input placeholder="Subject" value={subject} onChange={(e) => setSubject(e.target.value)} style={{ width: "100%", padding: "8px", marginBottom: "10px", background: "#333", border: "none", color: "white" }} /><br />
@@ -115,7 +129,7 @@ const AdminResources = () => {
                         </button>
                     </div>
 
-                    {/* --- FUN GAMES SECTION --- */}
+                    {/* SECTION 2: FUN GAMES */}
                     <div style={{ flex: 1, border: "1px solid #333", padding: "15px", minWidth: "300px", background: "#1a1a1a", borderRadius: "8px" }}>
                         <h3>2. Update Fun Game Question</h3>
                         <textarea
@@ -130,19 +144,13 @@ const AdminResources = () => {
                             <input placeholder="Option C" value={gameData.optionC} onChange={(e) => setGameData({ ...gameData, optionC: e.target.value })} style={{ background: "#333", border: "none", color: "white", padding: "8px" }} />
                             <input placeholder="Option D" value={gameData.optionD} onChange={(e) => setGameData({ ...gameData, optionD: e.target.value })} style={{ background: "#333", border: "none", color: "white", padding: "8px" }} />
                         </div>
-
                         <label>Correct Answer: </label>
                         <select value={gameData.correctAnswer} onChange={(e) => setGameData({ ...gameData, correctAnswer: e.target.value })} style={{ background: "#333", border: "none", color: "white", padding: "5px", marginLeft: "10px", marginBottom: "15px" }}>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="D">D</option>
+                            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
                         </select><br />
-
                         <button onClick={handleGameUpload} disabled={loading} style={{ backgroundColor: "#28a745", color: "white", padding: "8px 16px", border: "none", cursor: "pointer", borderRadius: "4px" }}>
                             {loading ? "Updating Game..." : "Set New Question"}
                         </button>
-                        <p style={{ fontSize: "12px", color: "orange", marginTop: "10px" }}>*Note: This will clear the current leaderboard!</p>
                     </div>
                 </div>
 
@@ -152,7 +160,7 @@ const AdminResources = () => {
                     {resources.map((r) => (
                         <li key={r.id} style={{ background: "#1a1a1a", padding: "10px", marginBottom: "10px", borderRadius: "4px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                             <span><strong>{r.subject}</strong> – {r.chapterName}</span>
-                            <button onClick={() => handleDelete(r.id)} style={{ marginLeft: "10px", background: "transparent", border: "none", cursor: "pointer" }}>❌</button>
+                            <button onClick={() => handleDelete(r.id)} style={{ background: "transparent", border: "none", cursor: "pointer" }}>❌</button>
                         </li>
                     ))}
                 </ul>

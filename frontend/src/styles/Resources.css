@@ -330,3 +330,17 @@
 iframe {
     border: none;
 }
+
+/* ===============================
+   FIX PAGE HEADER VISIBILITY
+   =============================== */
+
+.resources-main {
+  position: relative;
+  z-index: 5;
+}
+
+.page-header {
+  position: relative;
+  z-index: 6;
+}
