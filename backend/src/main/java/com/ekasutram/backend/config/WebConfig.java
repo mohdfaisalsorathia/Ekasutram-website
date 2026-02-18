@@ -14,8 +14,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
-                // list live Vercel URL and local dev URL explicitly
-                .allowedOrigins(frontendUrl, "http://localhost:5173")
+                // Use origin patterns to allow any subdomain of your vercel project
+                .allowedOriginPatterns(
+                        "https://ekasutram-website-*.vercel.app",
+                        "https://ekasutram-website-*-mohdfaisalsorathias-projects.vercel.app",
+                        "http://localhost:5173")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
