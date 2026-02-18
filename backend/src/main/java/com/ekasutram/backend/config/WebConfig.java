@@ -14,9 +14,13 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
-                // Use origin patterns to allow any subdomain of your vercel project
+                // Use origin patterns to allow any subdomain of your vercel project and custom
+                // domain
                 .allowedOriginPatterns(
                         "https://*.vercel.app", // Catch any Vercel domain
+                        "https://ekasutram.com",
+                        "https://www.ekasutram.com",
+                        "https://*.ekasutram.com", // Catch any subdomain of ekasutram.com
                         "http://localhost:5173")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*");
