@@ -9,7 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/admin")
-@CrossOrigin(origins = "*") // Allows the admin frontend to communicate with this controller
 public class AdminResourceController {
 
     private final ResourceService resourceService;

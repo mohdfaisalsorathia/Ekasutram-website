@@ -16,8 +16,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/api/**")
                 // Use origin patterns to allow any subdomain of your vercel project
                 .allowedOriginPatterns(
-                        "https://ekasutram-website-*.vercel.app",
-                        "https://ekasutram-website-*-mohdfaisalsorathias-projects.vercel.app",
+                        "https://*.vercel.app", // Catch any Vercel domain
                         "http://localhost:5173")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
