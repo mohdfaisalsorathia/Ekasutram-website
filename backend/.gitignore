@@ -1,48 +1,30 @@
-HELP.md
+# Security: Ignore environment variables and credentials
+.env
+.env.local
+.env.example
+!.env.example
+
+# Build & Dependency Directories
+node_modules/
 target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+dist/
+out/
 build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-# IntelliJ IDEA
+# IDE specific files
 .idea/
 *.iml
+*.iws
+*.ipr
+.vscode/
+.settings/
+.classpath
+.project
+.factorypath
 
-# OS files
+# OS generated files
 .DS_Store
 Thumbs.db
 
-# Node
-node_modules/
-
-# Build outputs
-/backend/target/
-/frontend/dist/
-
-### VS Code ###
-.vscode/
+# Maven wrapper
+.mvn/wrapper/maven-wrapper.jar
