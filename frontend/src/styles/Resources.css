@@ -1,11 +1,47 @@
 /* Resources Page Styles */
 .resources-container {
     display: flex;
+    flex-direction: column;
     min-height: 100vh;
     background-color: transparent;
     color: #e0e0e0;
     position: relative;
     z-index: 1;
+}
+
+/* Resources Hero Section */
+.resources-hero {
+    padding: 120px 40px 60px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.resources-hero .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.resources-hero .hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #fff 0%, #a0a0a0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.resources-hero .hero-subtitle {
+    font-size: 1.2rem;
+    color: #b0b0b0;
+    margin-bottom: 2rem;
+}
+
+/* Main wrapper for sidebar + content */
+.resources-wrapper {
+    display: flex;
+    flex: 1;
 }
 
 /* Sidebar Styling */
@@ -225,7 +261,19 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-    .resources-container {
+    .resources-hero {
+        padding: 100px 20px 40px;
+    }
+
+    .resources-hero .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .resources-hero .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .resources-wrapper {
         flex-direction: column;
     }
 
@@ -235,6 +283,7 @@
         position: static;
         border-right: none;
         border-bottom: 1px solid #2a2a2a;
+        padding: 20px;
     }
 
     .subject-list {
@@ -258,6 +307,16 @@
 
     .resources-main {
         padding: 20px;
+    }
+
+    .resources-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .pdf-modal-content {
+        width: 95%;
+        height: 85vh;
     }
 }
 
@@ -284,6 +343,27 @@
     background: #339af0;
 }
 
+.download-link {
+    align-self: stretch;
+    padding: 10px;
+    background: #2a2a2a;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: bold;
+}
+
+.download-link:hover {
+    background: #4CAF50;
+    color: #000;
+}
+
 /* Modal Styles */
 .pdf-modal-overlay {
     position: fixed;
@@ -291,12 +371,13 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(0, 0, 0, 0.92);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
-    backdrop-filter: blur(5px);
+    z-index: 9999;
+    backdrop-filter: blur(10px);
+    isolation: isolate;
 }
 
 .pdf-modal-content {
@@ -308,6 +389,7 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
 }
 
 .modal-header {

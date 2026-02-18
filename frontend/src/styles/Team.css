@@ -32,21 +32,80 @@
 .team-subheading {
   font-size: 1.2rem;
   color: #b0b0b0;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
   text-align: center;
   max-width: 600px;
   position: relative;
   z-index: 10;
 }
 
-.scroll-hint {
-  font-size: 0.9rem;
-  color: #888;
-  margin-bottom: 2rem;
-  opacity: 0.8;
-  animation: bounce 2s infinite;
+/* Team Grid Layout */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  width: 100%;
+  padding: 2rem;
   position: relative;
   z-index: 10;
+}
+
+.team-member-box {
+  background: rgba(30, 30, 30, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.team-member-box:hover {
+  transform: translateY(-5px);
+  background: rgba(40, 40, 40, 0.7);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.member-photo-placeholder {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2a2a2a, #404040);
+  margin: 0 auto 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.photo-icon {
+  font-size: 3rem;
+  opacity: 0.5;
+}
+
+.member-name {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #fff;
+}
+
+.member-role-tag {
+  color: #4CAF50;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.member-short-bio {
+  font-size: 0.9rem;
+  color: #b0b0b0;
+  line-height: 1.5;
 }
 
 @keyframes bounce {
