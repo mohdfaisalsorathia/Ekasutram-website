@@ -42,13 +42,14 @@
 /* Team Grid Layout */
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 2rem;
-  max-width: 1200px;
+  max-width: 1400px;
   width: 100%;
   padding: 2rem;
   position: relative;
   z-index: 10;
+  justify-items: center;
 }
 
 .team-member-box {
@@ -60,6 +61,8 @@
   cursor: pointer;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+  width: 100%;
+  max-width: 300px;
 }
 
 .team-member-box:hover {

@@ -10,27 +10,32 @@ type Member = {
   image?: string;
 };
 
-// Team Data - 4 key members
+// Team Data - 5 key members
 const teamMembers: Member[] = [
   { 
-    name: "Dr. Name Surname", 
-    role: "Head", 
-    bio: "Leading the mathematics club with vision and expertise in fostering mathematical thinking and problem-solving excellence."
+    name: "Sahil Kakad", 
+    role: "Chairperson", 
+    bio: "Leading Ekasutram with vision and dedication, overseeing all club activities and ensuring the growth of mathematical excellence among students."
   },
   { 
-    name: "Prof. Name Surname", 
-    role: "Faculty Advisor", 
-    bio: "Guiding students through complex mathematical concepts and mentoring the next generation of mathematicians."
+    name: "Aishwarya Kalshetti", 
+    role: "Vice Chairperson", 
+    bio: "Supporting the club's leadership and coordinating various initiatives to foster a vibrant mathematical community at VIT."
   },
   { 
-    name: "Student Name", 
-    role: "President", 
-    bio: "Coordinating club activities, events, and initiatives to create an engaging mathematical community."
+    name: "Rohit Rathod", 
+    role: "Event Coordinator", 
+    bio: "Organizing and managing all club events, from competitions to workshops, ensuring seamless execution and maximum student engagement."
   },
   { 
-    name: "Student Name", 
-    role: "Vice President", 
-    bio: "Supporting leadership and managing various technical and organizational aspects of the club."
+    name: "Gaurav Rathi", 
+    role: "Treasurer", 
+    bio: "Managing the club's finances, budgeting for events, and ensuring transparent financial operations for all activities."
+  },
+  { 
+    name: "Yash Manjare", 
+    role: "PRO", 
+    bio: "Handling public relations, maintaining the club's social media presence, and promoting events to build a strong community presence."
   }
 ];
 
