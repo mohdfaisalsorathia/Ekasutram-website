@@ -14,16 +14,17 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
-                // Allow both local development and your live production domain
+                // list live Vercel URL and local dev URL explicitly
                 .allowedOrigins(frontendUrl, "http://localhost:5173")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
-                .allowCredentials(true); // Required if you use cookies or auth headers
+                .allowCredentials(true);
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Use a relative path for hosting compatibility instead of a hardcoded C: drive path
+        // Use a relative path for hosting compatibility instead of a hardcoded C: drive
+        // path
         // On Railway/Render, this will create an 'uploads' folder in the app root
         registry.addResourceHandler("/uploads/**")
                 .addResourceLocations("file:uploads/");
