@@ -15,7 +15,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
                 // list live Vercel URL and local dev URL explicitly
-                .allowedOrigins(frontendUrl, "http://localhost:5173")
+                .allowedOrigins(frontendUrl, "https://ekasutram-website-mgx1-54kk3wxab-mohdfaisalsorathias-projects.vercel.app","http://localhost:5173")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .allowCredentials(true);
