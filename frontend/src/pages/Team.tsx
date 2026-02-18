@@ -1,5 +1,5 @@
 import "../styles/Team.css";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import MathBackground from "../components/MathBackground";
 import Navbar from "../components/Navbar";
 
@@ -7,122 +7,40 @@ type Member = {
   name: string;
   role: string;
   bio: string;
+  image?: string;
 };
 
-// Restored Team Data with specific roles and detailed bios
+// Team Data - 5 key members
 const teamMembers: Member[] = [
-  { name: "Team Member", role: "Management Secretary", bio: "Oversees overall planning and coordination of club activities, ensuring events are well-organized with clear responsibilities and efficient communication between teams." },
-  { name: "Team Member", role: "Management Secretary", bio: "Maintains structure, discipline, and smooth execution of all initiatives through strategic planning and coordination." },
-  { name: "Team Member", role: "Aesthetic Secretary", bio: "Maintains the visual identity of Ekasutram through poster design, presentations, and consistent theming across all platforms while aligning with the club's academic spirit." },
-  { name: "Team Member", role: "Branding Secretary", bio: "Manages public image and outreach through strategic promotion, social media presence, and collaborations to build a strong, recognizable identity for Ekasutram." },
-  { name: "Team Member", role: "Branding Secretary", bio: "Ensures Ekasutram reaches and inspires a wider audience through effective branding strategies and community engagement." },
-  { name: "Team Member", role: "Content Secretary", bio: "Curates and creates mathematical content for events, challenges, and online platforms with a focus on higher-order thinking questions and engaging material." },
-  { name: "Team Member", role: "Content Secretary", bio: "Designs captions and written material that reflect the club's intellectual depth while keeping content student-friendly and accessible." },
-  { name: "Team Member", role: "Technical Secretary", bio: "Handles digital platforms, online events, and technical tools to ensure seamless execution of virtual challenges and presentations." },
-  { name: "Team Member", role: "Technical Secretary", bio: "Provides technical support and manages technology infrastructure for all club activities and initiatives." },
-  { name: "Team Member", role: "Technical Secretary", bio: "Ensures smooth technical operations across all digital platforms and virtual events." },
-  { name: "Team Member", role: "Technical Secretary", bio: "Manages and maintains all technical aspects of Ekasutram's digital presence and online activities." },
-  { name: "Team Member", role: "Finance & Sponsorship Secretary", bio: "Manages financial planning, budgeting, and maintains financial transparency for all club activities." },
-  { name: "Team Member", role: "Finance & Sponsorship Secretary", bio: "Works towards securing sponsorships and support for events, ensuring all activities are well-funded and sustainably executed without compromising quality." }
+  { 
+    name: "Sahil Kakad", 
+    role: "Chairperson", 
+    bio: "Leading Ekasutram with vision and dedication, overseeing all club activities and ensuring the growth of mathematical excellence among students."
+  },
+  { 
+    name: "Aishwarya Kalshetti", 
+    role: "Vice Chairperson", 
+    bio: "Supporting the club's leadership and coordinating various initiatives to foster a vibrant mathematical community at VIT."
+  },
+  { 
+    name: "Rohit Rathod", 
+    role: "Event Coordinator", 
+    bio: "Organizing and managing all club events, from competitions to workshops, ensuring seamless execution and maximum student engagement."
+  },
+  { 
+    name: "Gaurav Rathi", 
+    role: "Treasurer", 
+    bio: "Managing the club's finances, budgeting for events, and ensuring transparent financial operations for all activities."
+  },
+  { 
+    name: "Yash Manjare", 
+    role: "PRO", 
+    bio: "Handling public relations, maintaining the club's social media presence, and promoting events to build a strong community presence."
+  }
 ];
 
 export default function Team() {
   const [active, setActive] = useState<Member | null>(null);
-
-  // Carousel Logic
-  const [rotation, setRotation] = useState(0);
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const lastScrollTime = useRef<number>(0);
-  const scrollDebounce = 800; // milliseconds between rotations
-
-  useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      if (carouselRef.current && carouselRef.current.contains(e.target as Node)) {
-        const now = Date.now();
-        if (now - lastScrollTime.current < scrollDebounce) {
-          e.preventDefault();
-          return;
-        }
-
-        e.preventDefault();
-        lastScrollTime.current = now;
-
-        const angleStep = 360 / teamMembers.length;
-        // Scroll down = move right (positive rotation), Scroll up = move left (negative rotation)
-        const direction = e.deltaY > 0 ? angleStep : -angleStep;
-        setRotation(prev => prev + direction);
-      }
-    };
-
-    window.addEventListener('wheel', handleWheel, { passive: false });
-    return () => window.removeEventListener('wheel', handleWheel);
-  }, []);
-
-
-  useEffect(() => {
-  let startX: number | null = null;
-  const angleStep = 360 / teamMembers.length; // 1 member rotation
-  const dragThreshold = 50; // minimum px to count as a swipe
-
-  // ---- Touch Events (Mobile) ----
-  const handleTouchStart = (e: TouchEvent) => {
-    startX = e.touches[0].clientX;
-  };
-
-  const handleTouchEnd = (e: TouchEvent) => {
-    if (startX === null) return;
-    const endX = e.changedTouches[0].clientX;
-    const diff = endX - startX;
-
-    if (Math.abs(diff) > dragThreshold) {
-      if (diff > 0) setRotation(prev => prev - angleStep); // swipe right → previous
-      else setRotation(prev => prev + angleStep); // swipe left → next
-    }
-    startX = null;
-  };
-
-  // ---- Mouse Events (Desktop) ----
-  const handleMouseDown = (e: MouseEvent) => {
-    startX = e.clientX;
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseup", handleMouseUp);
-  };
-
-  let moved = false;
-  const handleMouseMove = (e: MouseEvent) => {
-    moved = true; // to track if mouse moved at all
-  };
-
-  const handleMouseUp = (e: MouseEvent) => {
-    if (startX === null) return;
-    const diff = e.clientX - startX;
-
-    if (moved && Math.abs(diff) > dragThreshold) {
-      if (diff > 0) setRotation(prev => prev - angleStep); // drag right → previous
-      else setRotation(prev => prev + angleStep); // drag left → next
-    }
-
-    startX = null;
-    moved = false;
-    window.removeEventListener("mousemove", handleMouseMove);
-    window.removeEventListener("mouseup", handleMouseUp);
-  };
-
-  const carouselEl = carouselRef.current;
-  if (carouselEl) {
-    carouselEl.addEventListener("touchstart", handleTouchStart);
-    carouselEl.addEventListener("touchend", handleTouchEnd);
-    carouselEl.addEventListener("mousedown", handleMouseDown);
-  }
-
-  return () => {
-    if (carouselEl) {
-      carouselEl.removeEventListener("touchstart", handleTouchStart);
-      carouselEl.removeEventListener("touchend", handleTouchEnd);
-      carouselEl.removeEventListener("mousedown", handleMouseDown);
-    }
-  };
-}, []);
 
 
   return (
@@ -135,31 +53,19 @@ export default function Team() {
         <p className="team-subheading">
           Meet the people driving Ekasutram — creativity, logic, leadership.
         </p>
-        <p className="scroll-hint">Scroll to navigate team members</p>
 
-        {/* 3D Carousel */}
-        <div className="carousel-wrapper" ref={carouselRef}>
-          <div className="carousel-container">
-            <div className="carousel" style={{ transform: `rotateY(${rotation}deg)` }}>
-              {teamMembers.map((m, i) => {
-                const angle = (360 / teamMembers.length) * i;
-                return (
-                  <div
-                    key={i}
-                    className="team-card-3d"
-                    style={{
-                      transform: `rotateY(${angle}deg) translateZ(450px)`
-                    }}
-                    onClick={() => setActive(m)}
-                  >
-                    <div className="avatar" />
-                    <h3>{m.name}</h3>
-                    <p className="member-role">{m.role}</p>
-                  </div>
-                );
-              })}
+        {/* Team Grid */}
+        <div className="team-grid">
+          {teamMembers.map((member, index) => (
+            <div key={index} className="team-member-box" onClick={() => setActive(member)}>
+              <div className="member-photo-placeholder">
+                <span className="photo-icon">👤</span>
+              </div>
+              <h3 className="member-name">{member.name}</h3>
+              <p className="member-role-tag">{member.role}</p>
+              <p className="member-short-bio">{member.bio.substring(0, 80)}...</p>
             </div>
-          </div>
+          ))}
         </div>
       </div>
 

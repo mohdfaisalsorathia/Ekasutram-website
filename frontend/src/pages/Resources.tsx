@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
 import { getResources } from "../services/api";
 import MathBackground from "../components/MathBackground";
+import Navbar from "../components/Navbar";
 import "../styles/Resources.css";
 
 interface Resource {
@@ -37,35 +38,41 @@ const Resources = () => {
 
   return (
     <div className="resources-container">
+      <Navbar />
       <MathBackground showSymbols={false} />
-      {/* Sidebar */}
-      <aside className="resources-sidebar">
-        <div className="sidebar-header"><h2>Categories</h2></div>
-        <ul className="subject-list">
-          {topics.map((topic) => (
-            <li key={topic} className="subject-item">
-              <button
-                className={`subject-btn ${selectedTopic === topic ? "active" : ""}`}
-                onClick={() => setSelectedTopic(topic)}
-              >
-                {topic}
-                <span className="subject-count">
-                  {topic === "All" ? resources.length : resources.filter(r => r.subject === topic).length}
-                </span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      </aside>
-
-      {/* Main Content */}
-      <main className="resources-main">
-        <div className="page-header">
-          <h1 className="page-title">Learning Resources</h1>
-          <p className="page-subtitle">Curated materials to boost your mathematical journey.</p>
+      
+      {/* Header Section */}
+      <section className="resources-hero">
+        <div className="hero-content">
+          <h1 className="hero-title">Learning Resources</h1>
+          <p className="hero-subtitle">Curated materials to boost your mathematical journey</p>
         </div>
+      </section>
 
-        {loading ? (
+      {/* Main Content Wrapper */}
+      <div className="resources-wrapper">
+        {/* Sidebar */}
+        <aside className="resources-sidebar">
+          <div className="sidebar-header"><h2>Categories</h2></div>
+          <ul className="subject-list">
+            {topics.map((topic) => (
+              <li key={topic} className="subject-item">
+                <button
+                  className={`subject-btn ${selectedTopic === topic ? "active" : ""}`}
+                  onClick={() => setSelectedTopic(topic)}
+                >
+                  {topic}
+                  <span className="subject-count">
+                    {topic === "All" ? resources.length : resources.filter(r => r.subject === topic).length}
+                  </span>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </aside>
+
+        {/* Main Content */}
+        <main className="resources-main">{loading ? (
           <div className="loading-spinner">Loading resources...</div>
         ) : (
           <div className="resources-grid">
@@ -116,6 +123,7 @@ const Resources = () => {
           </div>
         )}
       </main>
+      </div>
     </div>
   );
 };

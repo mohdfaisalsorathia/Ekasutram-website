@@ -1,49 +1,34 @@
-import { useEffect } from "react";
 import MathBackground from "../components/MathBackground";
 import Navbar from "../components/Navbar";
 import "../styles/Events.css";
 
 const Events = () => {
-  useEffect(() => {
-    // Spotlight Logic for Cards
-    const handleMouseMove = (e: MouseEvent) => {
-      document.querySelectorAll('.spotlight-card').forEach((card) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        (card as HTMLElement).style.setProperty('--mouse-x', `${x}px`);
-        (card as HTMLElement).style.setProperty('--mouse-y', `${y}px`);
-      });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
-
   const events = [
     {
-      title: "Math Quiz Competition",
-      date: "March 15, 2026",
-      description: "Test your mathematical knowledge in this exciting quiz competition with amazing prizes.",
-      category: "Competition"
+      title: "Bhaskar – Integrating VIT",
+      date: "TBA",
+      description: "Dive into a thrilling blend of logic, mystery, and adventure. Bhaskar brings you three challenges in one epic event: outsmart opponents in Quizzle, solve cryptic clues in the Murder Mystery Challenge, and race through campus in a Treasure Hunt. Form your team, strategize together, and compete for glory.",
+      category: "Interactive Challenge",
+      highlights: [
+        "🧩 Three unique challenges in one event",
+        "👥 Team-based competition (₹100 per team)",
+        "🏆 Test your logic, problem-solving, and teamwork",
+        "🎯 Open to all students across disciplines"
+      ],
+      cta: "Assemble your squad and register now—adventure awaits!"
     },
     {
-      title: "Workshop: Advanced Calculus",
-      date: "March 22, 2026",
-      description: "Deep dive into advanced calculus concepts with practical applications and problem-solving.",
-      category: "Workshop"
-    },
-    {
-      title: "Guest Lecture Series",
-      date: "April 5, 2026",
-      description: "Learn from industry experts about real-world applications of mathematics.",
-      category: "Lecture"
-    },
-    {
-      title: "Mathematical Olympiad",
-      date: "April 18, 2026",
-      description: "Showcase your problem-solving skills in our annual mathematical olympiad.",
-      category: "Competition"
+      title: "Bhaskar – SetCode",
+      date: "TBA",
+      description: "Challenge your coding prowess in SetCode, a high-intensity algorithmic competition designed for problem-solvers. Compete individually in separate tracks tailored for first-years and seniors, then sharpen your skills further with an exclusive speaker session and hands-on workshop. Write code. Solve problems. Dominate the leaderboard.",
+      category: "Coding Competition",
+      highlights: [
+        "💻 Individual coding contest with beginner & advanced tracks",
+        "⏱️ Time-bound, logic-driven problem-solving",
+        "🎤 Speaker session + workshop included",
+        "🚀 Build skills, compete fiercely, and level up"
+      ],
+      cta: "Ready to code? Register and prove your algorithmic edge."
     }
   ];
 
@@ -68,14 +53,23 @@ const Events = () => {
         <div className="container">
           <div className="events-grid">
             {events.map((event, index) => (
-              <div key={index} className="event-card spotlight-card">
+              <div key={index} className="event-card">
                 <div className="card-border"></div>
                 <div className="card-content">
                   <span className="event-category">{event.category}</span>
                   <h3>{event.title}</h3>
                   <p className="event-date">{event.date}</p>
                   <p className="event-description">{event.description}</p>
-                  <button className="cta-button primary">Register Now</button>
+                  
+                  {event.highlights && (
+                    <ul className="event-highlights">
+                      {event.highlights.map((highlight, idx) => (
+                        <li key={idx}>{highlight}</li>
+                      ))}
+                    </ul>
+                  )}
+                  
+                  <p className="event-cta-text">{event.cta}</p>
                 </div>
               </div>
             ))}
