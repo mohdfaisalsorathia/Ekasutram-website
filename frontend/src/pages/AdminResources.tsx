@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getResources, uploadResource, deleteResource, uploadGame, verifyAdminPassword } from "../services/api";
 import MathBackground from "../components/MathBackground";
-// import { useNavigate } from "react-router-dom";
 
 const AdminResources = () => {
     // --- Auth States ---
